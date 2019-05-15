@@ -32,7 +32,10 @@ void initServo(void){
 	PWMPER45 = 30000;
 	
 	//**Choose start position??
+	//Calibrate that goes in middle around 2250
 	//PWM in middle
+	PWMDTY67 = 2250;
+	PWMDTY45 = 2250;	
 	
 	//Enable PWM channels
 	PWME = 0xA0;
@@ -51,28 +54,30 @@ void servoOFF(){
 void setAzimuth(float angleAzi){
 	
 	if (angleAzi >=0 && angleAzi <= 90) {
-		PWMDTY45=
+		//(Angle/90*900)+2250=PWMDTY
+		PWMDTY45 = 2250 + (angleAzi*10);
 	}
 	else if (angleAzi <0 && angleAzi >= -90) {
-		PWMDTY45=
+		PWMDTY45 = 2250 - (angleAzi*10);
 	}
 	else {
 		//RETURN TO DEFAULT
-		PWMDTY45=
+		PWMDTY45 = 2250;
 	}
 		
 	
 }
 
 void setElevation(angleElev){
-	if (angleAzi >=0 && angleAzi <= 90) {
-		PWMDTY67
+	if (angleElev >=0 && angleElev <= 90) {
+		//(angleElev/90*900)+2250=PWMDTY
+		PWMDTY67 = 2250 + (angleElev*10);
 	}
-	else if (angleAzi <0 && angleAzi >= -90) {
-		PWMDTY67=
+	else if (angleElev <0 && angleElev >= -90) {
+		PWMDTY67 = 2250 - (angleElev*10);
 	}
 	else {
 		//RETURN TO DEFAULT
-		PWMDTY67=
+		PWMDTY67 = 2250;
 	}
 }
